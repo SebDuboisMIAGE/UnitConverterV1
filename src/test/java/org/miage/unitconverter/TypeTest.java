@@ -40,4 +40,25 @@ public class TypeTest {
     public void tearDown() {
     }
     
+    @Test
+    public void ajoutCoef(){
+        Type type = new Type("longueur", "m");
+        type.addCoef("km", BigDecimal.valueOf(0.1));
+        assertTrue(type.getCoef().containsKey("km"));
+    }
+    
+    @Test
+    public void ChangementNom(){
+        Type type = new Type("longueur", "m");
+        type.addCoef("km", BigDecimal.valueOf(0.1));
+        type.setNom("distance");
+        assertTrue(type.getNom().equalsIgnoreCase("distance"));
+    }
+    
+    @Test
+    public void RecupererNom(){
+        Type type = new Type("longueur", "m");
+        assertTrue(type.getNom().equalsIgnoreCase("longueur"));
+    }
+    
 }

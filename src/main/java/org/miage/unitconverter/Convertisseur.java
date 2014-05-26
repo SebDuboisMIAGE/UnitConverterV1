@@ -11,7 +11,6 @@ package org.miage.unitconverter;
  * @author Sébastien
  */
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.HashMap;
 
 
@@ -19,17 +18,22 @@ public class Convertisseur {
 
     
     public BigDecimal convert(String depart, BigDecimal in, HashMap<String, BigDecimal> coef, String arrive){
-        return convertReferenceToOut(arrive, coef, convertInToReference(depart, coef, in));
+        if (coef.containsKey(depart) && coef.containsKey(arrive)){
+            if (!in.equals(BigDecimal.ZERO)){
+                return convertReferenceToOut(arrive, coef, convertInToReference(depart, coef, in));
+            }            
+        }
+        return null;       
     }
     
     public BigDecimal convertInToReference(String name, HashMap<String, BigDecimal> coef, BigDecimal in){
         if(coef != null && coef.get(name) != null){
-            return coef.get(name).multiply(in);
+            return in.divide(coef.get(name));
         }
         return null;
     }
     
     public BigDecimal convertReferenceToOut(String name,HashMap<String, BigDecimal> coef,  BigDecimal in){
-        return coef.get(name).divide(in, 4, RoundingMode.HALF_UP);
+        return coef.get(name).multiply(in);
     }
 }

@@ -39,10 +39,10 @@ public class Type {
         this.coefList.put(this.refName, BigDecimal.ONE);
     }
     
-    public boolean addCoef(String nom, int coef){
+    public boolean addCoef(String nom, BigDecimal coef){
         if (nom != null && !nom.equals("")){
             if(this.coefList != null){
-                this.coefList.put(nom, BigDecimal.valueOf(coef));
+                this.coefList.put(nom, coef);
                 return true;
             }
         }
